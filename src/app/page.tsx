@@ -1,13 +1,9 @@
-import { SessionProvider } from "next-auth/react";
 
-export default function Home({
-  Component,
-  pageProps: { session, ...pageProps },
-}) {
+export default function Home() {
   return (
-    <SessionProvider session={session}>
-      <div>Home</div>
-      <Component {...pageProps}/>
-    </SessionProvider>
+    <div>
+        <h1>Home Page</h1>
+        <p>Welcome to the home page!</p>
+    </div>
   );
 }
