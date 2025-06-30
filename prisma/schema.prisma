@@ -15,29 +15,32 @@ datasource db {
 }
 
 model Trip {
-  id String @id @default(uuid())
-  name String
-  location String
-  startDate DateTime
-  endDate DateTime
-  pricePerDay Decimal @db.Decimal(8, 2)
-  description String
-  coverImage String
-  imageUrl String[]
-  highlights String[]
-  maxGuest Int
+  id           String        @id @default(uuid())
+  name         String
+  location     String
+  startDate    DateTime
+  endDate      DateTime
+  pricePerDay  Decimal       @db.Decimal(8, 2)
+  description  String
+  coverImage   String
+  imageUrl     String[]
+  highlights   String[]
+  maxGuest     Int
   reservations Reservation[]
+  countryCode  String
+  recommended  Boolean       @default(false)
+  createdAt    DateTime      @default(now())
 }
 
 model Reservation {
-  id String @id @default(uuid())
-  tripId String
-  trip Trip @relation(fields: [tripId], references: [id])
-  userId String
-  user User @relation(fields: [userId], references: [id])
+  id        String   @id @default(uuid())
+  tripId    String
+  trip      Trip     @relation(fields: [tripId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
   startDate DateTime
-  endDate DateTime
-  finalPaid Decimal @db.Decimal(8,2)
+  endDate   DateTime
+  finalPaid Decimal  @db.Decimal(8, 2)
 }
 
 model User {
@@ -50,13 +53,13 @@ model User {
   sessions      Session[]
   // Optional for WebAuthn support
   Authenticator Authenticator[]
- 
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   reservations Reservation[]
 }
- 
+
 model Account {
   userId            String
   type              String
@@ -69,33 +72,33 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
- 
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
- 
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   @@id([provider, providerAccountId])
 }
- 
+
 model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
- 
+
 model VerificationToken {
   identifier String
   token      String
   expires    DateTime
- 
+
   @@id([identifier, token])
 }
- 
+
 // Optional for WebAuthn support
 model Authenticator {
   credentialID         String  @unique
@@ -106,8 +109,8 @@ model Authenticator {
   credentialDeviceType String
   credentialBackedUp   Boolean
   transports           String?
- 
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   @@id([userId, credentialID])
 }
