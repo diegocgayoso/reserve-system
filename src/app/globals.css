@@ -11,12 +11,14 @@
   --color-cinza-claro: #bbbfbf;
   --color-cinza-claro-plus: #f5f5f5;
   --color-vermelho: #fe3838;
+
+  
+}
+:root {
+  --image-url-world-map: url('../../public/world-map.png');
+
 }
 
 /* @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 } */
 

@@ -7,11 +7,10 @@ import { useState } from "react";
 
 const Header = () => {
   const { status, data } = useSession();
-  const [menuIsOpen, setMenuIsOpen] = useState(true);
-  console.log(status);
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   return (
-    <header className="container mx-auto p-6 bg-branco flex items-center justify-between shadow-md">
+    <header className="container mx-auto p-6 py-0 h-24 bg-branco flex items-center justify-between">
       <h2>System Trips</h2>
 
       {status === "authenticated" && data.user && (
@@ -34,10 +33,10 @@ const Header = () => {
           />
 
           {menuIsOpen && (
-            <div className="mt-2 w-48 rounded-md bg-branco shadow-lg absolute top-10">
+            <div className="mt-2 rounded-md bg-branco shadow-lg absolute top-12 left-0">
               <button
                 onClick={() => signOut()}
-                className="block px-4 py-2 text-sm text-cinza hover:bg-roxo-light"
+                className="block px-4 py-2 w-full text-sm text-cinza hover:bg-roxo-light"
               >
                 Logout
               </button>
@@ -48,7 +47,7 @@ const Header = () => {
       {status === "unauthenticated" && (
         <div>
           <button
-            className="text-roxo active:text-roxo-dark"
+            className="text-roxo font-semibold"
             onClick={() => signIn()}
           >
             Login
