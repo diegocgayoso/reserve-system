@@ -18,6 +18,7 @@ const TripHeader = ({ trip }: TripHeaderProps) => {
             objectFit: "cover",
           }}
           alt={trip.name}
+          className="-z-10"
         />
       </div>
 
