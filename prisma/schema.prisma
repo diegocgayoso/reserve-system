@@ -15,21 +15,22 @@ datasource db {
 }
 
 model Trip {
-  id           String        @id @default(uuid())
-  name         String
-  location     String
-  startDate    DateTime
-  endDate      DateTime
-  pricePerDay  Decimal       @db.Decimal(8, 2)
-  description  String
-  coverImage   String
-  imageUrl     String[]
-  highlights   String[]
-  maxGuest     Int
-  reservations Reservation[]
-  countryCode  String
-  recommended  Boolean       @default(false)
-  createdAt    DateTime      @default(now())
+  id                  String        @id @default(uuid())
+  name                String
+  location            String
+  locationDescription String        @default("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+  startDate           DateTime
+  endDate             DateTime
+  pricePerDay         Decimal       @db.Decimal(8, 2)
+  description         String
+  coverImage          String
+  imageUrl            String[]
+  highlights          String[]
+  maxGuest            Int
+  reservations        Reservation[]
+  countryCode         String
+  recommended         Boolean       @default(false)
+  createdAt           DateTime      @default(now())
 }
 
 model Reservation {
