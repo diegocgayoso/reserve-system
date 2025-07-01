@@ -2,6 +2,7 @@ import { Trip } from "@prisma/client";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import Image from "next/image";
+import Link from "next/link";
 import ReactCountryFlag from "react-country-flag";
 
 interface TripItemProps {
@@ -10,7 +11,8 @@ interface TripItemProps {
 
 const TripItem = (props: TripItemProps) => {
   return (
-    <div className="flex flex-col p-4 gap-1 rounded-2xl justify-center hover:shadow-2xl transition-shadow duration-300">
+    <Link href={`/trips/${props.trip.id}`}>
+      <div className="flex flex-col p-4 gap-1 rounded-2xl justify-center hover:shadow-2xl transition-shadow duration-300">
         <div className="relative h-[320px] w-[320px]">
           <Image
             src={props.trip.coverImage}
@@ -43,6 +45,7 @@ const TripItem = (props: TripItemProps) => {
       </p>
 
     </div>
+    </Link>
   );
 };
 

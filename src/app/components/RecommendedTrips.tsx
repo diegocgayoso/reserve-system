@@ -1,6 +1,4 @@
 import { Trip } from "@prisma/client";
-import { ptBR } from "date-fns/locale";
-import { format } from "date-fns";
 import { prisma } from "@/lib/prisma";
 import TripItem from "@/components/TripItem";
 
@@ -30,8 +28,8 @@ const RecommendedTrips = async () => {
             <TripItem
               key={trip.id}
               trip={trip}
+              
             />
-            
           ))}
         </div>
       )}
