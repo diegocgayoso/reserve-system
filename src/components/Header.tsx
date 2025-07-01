@@ -4,24 +4,41 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import Image from "next/image";
 import { useState } from "react";
+import Link from "next/link";
 
 const Header = () => {
   const { status, data } = useSession();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
-  return (
-    <header className="container mx-auto p-6 py-0 h-24 bg-branco flex items-center justify-between">
-      <h2>System Trips</h2>
+  const handleLoginClick = () => signIn();
 
+  const handleLogoutClick = () => {
+    setMenuIsOpen(false);
+    signOut();
+  };
+
+  const handleMenuClick = () => setMenuIsOpen(!menuIsOpen);
+
+  return (
+    <div className="container mx-auto p-6 py-0 h-24 bg-branco flex items-center justify-between lg:border-b lg:border-cinza-claro">
+      <Link href="/">
+        <h2 className="hover:text-roxo transition duration-500 cursor-pointer">System Trips</h2>
+      </Link>
+
+      {status === "unauthenticated" && (
+        <button className="text-roxo font-semibold" onClick={handleLoginClick}>
+          Login
+        </button>
+      )}
       {status === "authenticated" && data.user && (
         <div
-          className="border border-roxo-light rounded-3xl px-4 py-2 flex items-center gap-4 relative"
+          className=" flex items-center gap-3 border-cinza-claro border border-solid rounded-full p-2 px-3 relative"
           onClick={() => setMenuIsOpen(!menuIsOpen)}
         >
           {menuIsOpen ? (
-            <AiOutlineClose className="text-cinza" size={16} />
+            <AiOutlineClose className="text-cinza cursor-pointer" size={16} />
           ) : (
-            <AiOutlineMenu className="text-cinza" size={16} />
+            <AiOutlineMenu className="text-cinza cursor-pointer" size={16} />
           )}
 
           <Image
@@ -33,10 +50,16 @@ const Header = () => {
           />
 
           {menuIsOpen && (
-            <div className="mt-2 rounded-md bg-branco shadow-lg absolute top-12 left-0">
+            <div className="z-50 absolute top-14 left-0 w-full h-[100px] bg-white rounded-lg shadow-md flex flex-col justify-center items-center">
+              <Link href="/my-trips" onClick={() => setMenuIsOpen(false)}>
+                <button className="text-roxo pb-2 border-b border-cinza border-solid text-sm font-semibold cursor-pointer">
+                  Minhas Viagens
+                </button>
+              </Link>
+
               <button
-                onClick={() => signOut()}
-                className="block px-4 py-2 w-full text-sm text-cinza hover:bg-roxo-light"
+                className="text-roxo pt-2 text-sm font-semibold cursor-pointer"
+                onClick={handleLogoutClick}
               >
                 Logout
               </button>
@@ -44,17 +67,7 @@ const Header = () => {
           )}
         </div>
       )}
-      {status === "unauthenticated" && (
-        <div>
-          <button
-            className="text-roxo font-semibold"
-            onClick={() => signIn()}
-          >
-            Login
-          </button>
-        </div>
-      )}
-    </header>
+    </div>
   );
 };
 export default Header;
