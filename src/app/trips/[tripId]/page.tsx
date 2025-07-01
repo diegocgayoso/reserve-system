@@ -21,13 +21,8 @@ const TripDetails = async ({ params }: { params: { tripId: string } }) => {
       {/* Imagens */}
       <TripHeader trip={trip} />
       <div className="flex flex-col lg:flex-row lg:mt-12 lg:gap-20">
-        <TripReservation
-          tripId={trip.id}
-          tripStartDate={trip.startDate}
-          tripEndDate={trip.endDate}
-          maxGuests={trip.maxGuest}
-          pricePerDay={trip.pricePerDay as any}
-        />
+        {/* Formulário de reserva */}
+        <TripReservation trip={trip} />
       </div>
 
       <div className="lg:order-1">
